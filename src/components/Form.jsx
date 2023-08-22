@@ -1,39 +1,58 @@
 import React, {useState} from 'react';
 import {toast} from "react-toastify";
+import axios from "axios";
 
 const Form = () => {
-    const [formData, setFormData] = useState({
+    const [formDataEl, setFormDataEl] = useState({
         email: "",
         name: "",
         mobile: ""
 
     })
-    const {name, mobile, email} = formData;
-    const onsubmit = (e) => {
+    const {name, mobile, email} = formDataEl;
+    const onSubmit = async (e) => {
         e.preventDefault();
+
         if (name.length === 0) {
-            toast.warn("Error: Name is required", {
+            toast.warn('Error: Name is required', {
                 className: 'custom-toast',
             });
+            return;
         }
         if (email.length === 0) {
-            toast.warn("Error: Email is required", {
+            toast.warn('Error: Email is required', {
                 className: 'custom-toast',
             });
+            return;
         }
         if (mobile.length === 0) {
-            toast.warn("Error: Mobile is required", {
+            toast.warn('Error: Mobile is required', {
                 className: 'custom-toast',
             });
-        }
-        else{
-            toast.success("Success")
+            return;
         }
 
-    }
-    const handleInputChange = (event) => {
-        const {name, value,} = event.target;
-        setFormData((prevData) => ({
+        try {
+            const response = await axios.post(`http://test`,
+                formDataEl,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+
+            console.log('Response:', response.data);
+            console.log(formDataEl)
+        } catch (error) {
+
+            console.error('Error:', error);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const {name, value,} = e .target;
+        setFormDataEl((prevData) => ({
             ...prevData,
             [name]: value
         }))
@@ -72,7 +91,7 @@ const Form = () => {
                 </div>
                 <div className={"d-flex justify-content-center"}>
                     <button type="submit" className="btn btn-success  " id={"submit"} name={"submit"}
-                            onClick={onsubmit}>Submit
+                            onClick={onSubmit}>Submit
                     </button>
                 </div>
                 <p className={"text-center text-muted mt-5 mb-0"}>Have already account ? <a href="/"
