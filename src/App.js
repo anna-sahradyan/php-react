@@ -1,11 +1,16 @@
 import React from 'react';
-import Form from "./components/Form";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import {Route, Routes} from "react-router";
+import Home from "./components/home";
+import List from "./components/List";
 const App = () => {
     return (
         <>
            <ToastContainer/>
-            <Form/>
+           <Routes>
+               <Route path={"/"} element={<Home/>}/>
+               <Route path={"/list"} element={<List/>}/>
+           </Routes>
         </>
     );
 };

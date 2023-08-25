@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import {toast} from "react-toastify";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addUser} from "../store/formSlice";
 
 const Form = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formDataEl, setFormDataEl] = useState({
         email: "",
         name: "",
@@ -10,6 +15,7 @@ const Form = () => {
 
     })
     const {name, mobile, email} = formDataEl;
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -30,28 +36,17 @@ const Form = () => {
                 className: 'custom-toast',
             });
             return;
+        } else {
+            dispatch(addUser(formDataEl))
+            navigate("/list")
+
         }
 
-        try {
-            const response = await axios.post(`http://test`,
-                formDataEl,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            );
-
-            console.log('Response:', response.data);
-            console.log(formDataEl)
-        } catch (error) {
-
-            console.error('Error:', error);
-        }
     };
 
+
     const handleInputChange = (e) => {
-        const {name, value,} = e .target;
+        const {name, value,} = e.target;
         setFormDataEl((prevData) => ({
             ...prevData,
             [name]: value
