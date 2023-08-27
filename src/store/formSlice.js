@@ -1,8 +1,8 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-export const addUser = createAsyncThunk("user/addUser", async (values) => {
+//?addUsers
+export const addUser = createAsyncThunk("form/addUser", async (values) => {
     try {
         const response = await axios.post("http://test", {
             email: values.email,
@@ -14,14 +14,18 @@ export const addUser = createAsyncThunk("user/addUser", async (values) => {
         throw error;
     }
 });
-export const getUser = createAsyncThunk("user/getUser", async (userId) => {
+//?allUsers
+export const getUser = createAsyncThunk("form/getUser", async (userId) => {
     try {
-        const response = await axios.get(`http://test/users/${userId}`);
+        const response = await axios.get(`http://users`);
         return response.data; // Assuming the response contains user data
     } catch (error) {
         throw error;
     }
 });
+//?pagination
+
+
 const formSlice = createSlice({
     name: "form",
     initialState: {
@@ -29,7 +33,8 @@ const formSlice = createSlice({
         formData: {},
         userData: null,
         error: "",
-        isSuccess: false
+        isSuccess: false,
+
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -62,6 +67,7 @@ const formSlice = createSlice({
             state.userData = null;
             state.error = action.error.message;
         });
+
     }
 });
 

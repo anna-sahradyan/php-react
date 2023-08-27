@@ -46,3 +46,21 @@ a {
 .custom-toast{
     /*transform: scale(0.8);*/
 }
+.content{
+    max-width: 1200px;
+    height: 100vh;
+    margin:  0 auto;
+}
+.nav{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+
+}
+.home {
+    position: absolute;
+    right: 35px;
+    top: -20px;
+
+
+}

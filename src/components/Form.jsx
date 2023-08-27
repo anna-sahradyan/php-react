@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {toast} from "react-toastify";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addUser} from "../store/formSlice";
 
@@ -58,8 +58,9 @@ const Form = () => {
 
     return (
 
-        <div className=" col-md-6 mx-auto mt-5">
 
+        <div className=" col-md-6 mx-auto mt-5">
+            <div className="home"><Link to={"/"}><img src="/img/home.png" alt=""/></Link></div>
             <form>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>
